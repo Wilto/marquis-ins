@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['<%= jshint.files %>'],
+			files: ['_tmpl/**'],
 			tasks: 'default'
 		},
 		copy: {
