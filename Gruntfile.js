@@ -10,15 +10,18 @@ module.exports = function(grunt) {
 					'_tmpl/js/lib/respond.js',
 					'_tmpl/js/init/*.js'
 				],
-				dest: 'dist/js/fg/initial.js'
+				dest: 'dist/js/initial.js'
 			},
 			js_enhanced: {
 				src: ['_tmpl/js/enh/*.js'],
 				dest: 'dist/js/enhanced.js'
 			},
 			css_init: {
-				src: ['_tmpl/css/init/*.css'],
-				dest: 'dist/css/init.css'
+				src: [
+					'_tmpl/css/lib/normalize.css',
+					'_tmpl/css/init/*.css'
+				],
+				dest: 'dist/css/basic.css'
 			},
 			css_enhanced: {
 				src: ['_tmpl/css/enh/*.css'],
@@ -42,13 +45,13 @@ module.exports = function(grunt) {
 			},
 			combine: {
 				files: {
-					'dist/css/init.css':  ['<%= concat.css_init.dest %>'],
-					'dist/css/enhanced.css':  ['<%= concat.css_enhanced.dest %>']
+					'<%= concat.css_init.dest %>':  '<%= concat.css_init.src %>',
+					'<%= concat.css_enhanced.dest %>':  ['<%= concat.css_enhanced.src %>']
 				}
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'dist/**/*.js'],
+			files: ['Gruntfile.js', 'dist/js/enhanced.js', 'dist/js/init.js'],
 			options: {
 				globals: {
 					jQuery: true,
@@ -104,5 +107,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('cleanup', ['chmod:writeable', 'clean', 'chmod:readonly']);
-	grunt.registerTask('default', ['jshint', 'chmod:writeable', 'clean', 'copy', 'concat', 'uglify', 'cssmin', 'chmod:readonly']);
+	grunt.registerTask('default', ['chmod:writeable', 'clean', 'concat', 'jshint', 'uglify', 'cssmin', 'copy', 'chmod:readonly']);
 };
