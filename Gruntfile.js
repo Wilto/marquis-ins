@@ -2,17 +2,27 @@
 'use strict';
 
 module.exports = function(grunt) {
-
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
-			jsdist: {
-				src: ['tmpl/js/*.js'],
-				dest: 'dist/js/<%= pkg.name %>.js'
+			js_init: {
+				src: [
+					'_tmpl/js/lib/respond.js',
+					'_tmpl/js/init/*.js'
+				],
+				dest: 'dist/js/fg/initial.js'
 			},
-			cssdist: {
-				src: ['tmpl/css/*.css'],
-				dest: 'dist/css/<%= pkg.name %>.css'
+			js_enhanced: {
+				src: ['_tmpl/js/enh/*.js'],
+				dest: 'dist/js/enhanced.js'
+			},
+			css_init: {
+				src: ['_tmpl/css/init/*.css'],
+				dest: 'dist/css/init.css'
+			},
+			css_enhanced: {
+				src: ['_tmpl/css/enh/*.css'],
+				dest: 'dist/css/enhanced.css'
 			}
 		},
 		uglify: {
@@ -21,7 +31,8 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'dist/js/<%= pkg.name %>.min.js': ['<%= concat.jsdist.dest %>']
+					'dist/js/init.min.js': ['<%= concat.js_init.dest %>'],
+					'dist/js/enhanced.min.js': ['<%= concat.js_enhanced.dest %>']
 				}
 			}
 		},
@@ -31,19 +42,14 @@ module.exports = function(grunt) {
 			},
 			combine: {
 				files: {
-					'dist/css/<%= pkg.name %>.css':  ['<%= concat.cssdist.dest %>']
-				}
-			},
-			dist: {
-				files: {
-					'dist/css/<%= pkg.name %>.min.css': ['<%= concat.cssdist.dest %>']
+					'dist/css/init.css':  ['<%= concat.css_init.dest %>'],
+					'dist/css/enhanced.css':  ['<%= concat.css_enhanced.dest %>']
 				}
 			}
 		},
 		jshint: {
 			files: ['Gruntfile.js', 'dist/**/*.js'],
 			options: {
-			// options here to override JSHint defaults
 				globals: {
 					jQuery: true,
 					console: true,
@@ -54,9 +60,38 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: ['<%= jshint.files %>'],
-			tasks: ['jshint', 'qunit']
+			tasks: 'default'
 		},
-		clean: ['dist']
+		copy: {
+			main: {
+				files: [
+					{
+						src: ['_tmpl/*.html'],
+						dest: 'dist/',
+						expand: true,
+						flatten: true,
+						filter: 'isFile'
+					}
+				]
+			}
+		},
+		clean: ['dist'],
+		chmod: {
+			options: {
+			},
+			readonly: {
+				options: {
+					mode: '555'
+				},
+				src: ['dist/**']
+			},
+			writeable: {
+				options: {
+					mode: '755'
+				},
+				src: ['dist/**']
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -64,8 +99,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-chmod');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['jshint']);
-	grunt.registerTask('dist', ['jshint', 'clean', 'concat', 'uglify', 'cssmin']);
+	grunt.registerTask('cleanup', ['chmod:writeable', 'clean', 'chmod:readonly']);
+	grunt.registerTask('default', ['jshint', 'chmod:writeable', 'clean', 'copy', 'concat', 'uglify', 'cssmin', 'chmod:readonly']);
 };
