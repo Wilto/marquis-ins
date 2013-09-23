@@ -62,7 +62,11 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['_tmpl/**'],
+			files: [
+				'_tmpl/*',
+				'_tmpl/**/*.css',
+				'_tmpl/**/*.js'
+			],
 			tasks: 'default'
 		},
 		copy: {
