@@ -1,0 +1,12 @@
+.btn {
+	color: #fff;
+	background-color: #6585ee;
+	background-image: linear-gradient(rgba(255,255,255,.5) 0%, rgba( 255,255,255,.1) 52%, rgba( 255,255,255,.1) 54%, rgba(255,255,255,0) 100%);
+	border-radius: .2em;
+	display: inline-block;
+	margin: .5em 0 0 0;
+	padding: .525em 1em .5em 1em;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px rgba(0,0,100,.8);
+	border: 1px solid #7087d1;
+}

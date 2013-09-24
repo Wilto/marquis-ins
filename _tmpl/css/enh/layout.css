@@ -1,0 +1,64 @@
+header {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	border-bottom: 3px double #b2b2b2;
+	width: 96.0416667%;
+	margin: 0 auto;
+	padding: 1.25em 0;
+}
+.logo {
+	display: block;
+	float: left;
+	margin: 0;
+	width: 23.318872%;
+}
+.nav-primary {
+	bottom: 1.25em;
+	display: table;
+	height: 5em;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	width: 68.1127983%;
+}
+.nav-primary a {
+	display: table-cell;
+	text-align: center;
+	width: 1%;
+	padding: 0 .5em;
+	vertical-align: middle;
+}
+
+.central {
+	margin: 0 auto;
+	padding: 2em 1.5%;
+	width: 93.0416667%;
+}
+.central .content {
+	margin: 1.25em 0;
+	width: 48.9289741%;
+}
+
+.wrap-abc {
+	background: #3c3c3c;
+	margin: 0 auto;
+	padding: 1.5em 1.5%;
+}
+.col {
+	background: #797979;
+	background: rgba(255,255,255,.25);
+	border-right: 15px solid #3c3c3c;
+	color: #fff;
+	display: table-cell;
+	padding: 1em;
+	width: 30.625%;
+}
+.col-c {
+	border-right: none;
+}
+
+.lower {
+	background: #222;
+	padding: 1em 0 4em 0;
+}

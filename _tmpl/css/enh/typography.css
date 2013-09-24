@@ -1,0 +1,41 @@
+body {
+	font-family: "Source Sans Pro";
+}
+
+p {
+	line-height: 1.35;
+}
+
+.nav-primary {
+	font-size: .9em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.nav-primary a {
+	padding-top: 2px;
+	border: 1px solid red;
+	text-decoration: none;
+}
+
+
+.hed {
+	font-size: 2.3em;
+	line-height: 1;
+	margin: 0;
+}
+.subhed {
+	display: block;
+	font-size: .6em;
+}
+
+.sec-hed {
+	font-size: 1.2em;
+	margin: .25em 0;
+	text-align: center;
+	text-transform: uppercase;
+	-webkit-font-smoothing: antialiased;
+}
+
+.sec-hed {
+	padding-bottom: 3em;
+}
